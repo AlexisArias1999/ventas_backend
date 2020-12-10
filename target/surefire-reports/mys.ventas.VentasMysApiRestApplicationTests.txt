@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: mys.ventas.VentasMysApiRestApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 90.771 s - in mys.ventas.VentasMysApiRestApplicationTests

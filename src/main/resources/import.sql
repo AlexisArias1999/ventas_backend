@@ -1,0 +1,378 @@
+--TIPO DE PERSONA
+INSERT INTO tipo_persona (descripcion, estado) VALUES ('JURIDICA',true)
+INSERT INTO tipo_persona (descripcion, estado) VALUES ('NATURAL',true)
+
+--TIPO DE DOCUMENTO PERSONA
+INSERT INTO documento_persona (descripcion, estado) VALUES ('RUC',true)
+INSERT INTO documento_persona (descripcion, estado) VALUES ('DNI',true)
+
+--EMPRESA
+INSERT INTO EMPRESAS (CELULAR, CORREO, CREADO, DIRECCION, DISTRITO, ESTADO, IMAGEN, MODIFICADO, PROVINCIA, RAZON_SOCIAL, RUC, ID_DOCUMENTO_PERSONA, ID_TIPO_PERSONA) VALUES ('959337544','empresa@gmail.com','2020-10-30 10:11:31.856','Direccion','Distrito',true,'','2020-10-30 10:11:31.856','Provincia','Empresa','123456789011',1,1)
+
+
+
+
+
+--MENUS
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Ventas',1, NULL,'',TRUE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Mantenimiento',2, NULL,'',TRUE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Invetario',3, NULL,'',TRUE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Finanzas',4, NULL,'',TRUE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Configuración',5, NULL,'',TRUE, TRUE)
+
+
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Facturar',1, 1,'', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Cliente',2, 1,'', FALSE, TRUE)
+
+
+
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Impuestos',1, 2,'', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Tipo de cuentas (Cajas)',2,2, '', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Entidad Bancarias',3, 2,'', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Forma de Pago',4, 2,'', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Proveedor',5, 2,'', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Empleado',6, 2,'', FALSE, TRUE)
+
+
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Productos',1, 3,'', FALSE, TRUE)
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Movimientos',2, 3,'', FALSE, TRUE)
+
+
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Recibos',1, 4,'',FALSE, TRUE)
+
+
+INSERT INTO MENUS(ICONO, NOMBRE, POSICION, ID_MENU_PADRE, RUTA, MENU, ESTADO) VALUES ('', 'Menus',1, 5,'', FALSE, TRUE)
+
+
+--ROLES
+INSERT INTO ROLES (DESCRIPCION, ESTADO) VALUES ('ROLE_ESPECIALISTA',TRUE)
+INSERT INTO ROLES (DESCRIPCION, ESTADO) VALUES ('ROLE_ADMINISTRADOR',TRUE)
+
+--USUARIO
+INSERT INTO USUARIOS (PASSWORD, ESTADO, USERNAME) VALUES ('$2a$10$Aku2LWYwN1JEyo43VJDuNeMCVzjDuOF5EPD9Prt0tdXJEwNwATEx2',true,'administrador')
+INSERT INTO USUARIOS (PASSWORD, ESTADO, USERNAME) VALUES ('$2a$10$Opqz.t0ZN/sz9z4kDu0f/.OcG1mnx2gpSdOn5Ac0KKAXwiVPURHcy',true,'optometra')
+
+--USUARIO-ROL
+INSERT INTO USUARIOS_ROLES (ID_USUARIO, ID_ROLE) VALUES (1,1)
+INSERT INTO USUARIOS_ROLES (ID_USUARIO, ID_ROLE) VALUES (1,2)
+INSERT INTO USUARIOS_ROLES (ID_USUARIO, ID_ROLE) VALUES (2,2)
+
+--TIPO MOVIMIENTO
+INSERT INTO TIPO_MOVIMIENTOS (DESCRIPCION, ESTADO) VALUES ('INGRESO',true)
+INSERT INTO TIPO_MOVIMIENTOS (DESCRIPCION, ESTADO) VALUES ('SALIDA',true)
+
+--MOTIVO TRASLADO
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('COMPRA NACIONAL', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('ASIGNACION RECIBIDA', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('DEVOLUCION RECIBIDA', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('INVENTARIO INICIAL', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('ENTRADA DE IMPORTACIÓN', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('INGRESO DE PRODUCCIÓN', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('ENTRADA POR DEVOLUCIÓN DE PRODUCCIÓN', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('ENTRADA POR TRANSFERENCIA ENTRE ALMACENES', TRUE)
+INSERT INTO MOTIVO_TRASLADO (DESCRIPCION, ESTADO) VALUES ('ENTRADA POR IDENTIFICACIÓN ERRONEA', TRUE)
+
+--EMPLEADO
+INSERT INTO EMPLEADOS (RAZON_SOCIAL, NOMBRES, APELLIDO_PATERNO, APELLIDO_MATERNO, ID_TIPO_PERSONA, ID_DOCUMENTO_PERSONA, NRO_DOCUMENTO, DIRECCION, TELEFONO, EMAIL, ID_USUARIO, ID_EMPRESA, ESTADO) VALUES ('', 'ADMINISTRADOR', ' ',' ', 2 , 2, '1234567','JR. DIRECCION 1','000000000','ariashuapayaxavieralexis@gmail.com', 1, 1, TRUE)
+INSERT INTO EMPLEADOS (RAZON_SOCIAL, NOMBRES, APELLIDO_PATERNO, APELLIDO_MATERNO, ID_TIPO_PERSONA, ID_DOCUMENTO_PERSONA, NRO_DOCUMENTO, DIRECCION, TELEFONO, EMAIL, ID_USUARIO, ID_EMPRESA, ESTADO) VALUES ('', 'EDUARDO MANUEL', 'ROJAS','CASAS', 2 , 2, '15415643','JR. DIRECCION 2','1111111','xavieralexisariashuapaya1999@gmail.com', 2, 1, TRUE)
+
+--MENU-EMPLEADOS
+--INSERT INTO MENUS_EMPLEADOS(ID_EMPLEADO, ICONO, NOMBRE, POSICION, ID_SUB_MENU, ID_MENU_PADRE, RUTA, ID_EMPRESA, MENU, ESTADO) VALUES (2,'', 'Ventas',1, NULL,NULL,'',1 ,TRUE, TRUE)
+
+
+--ALMACEN 
+INSERT INTO almacenes (descripcion, estado, id_empresa) VALUES ('ALMACEN 1', true, 1)
+INSERT INTO almacenes (descripcion, estado, id_empresa) VALUES ('ALMACEN 2', true, 1)
+INSERT INTO almacenes (descripcion, estado, id_empresa) VALUES ('ALMACEN 3', true, 1)
+
+
+--PRODUCTOS
+INSERT INTO PRODUCTOS (NOMBRE, PRECIO_UNITARIO_VENTA, STOCK_INICIAL, ID_ALMACEN) VALUES ('TELEVISOR', 1500, 10, 1)
+
+--VENTA ESTADO
+INSERT INTO venta_estado (descripcion,estado) VALUES ('VENTA SIN PAGOS',true)
+INSERT INTO venta_estado (descripcion,estado) VALUES ('VENTA CON PAGO PARCIAL',true)
+INSERT INTO venta_estado (descripcion,estado) VALUES ('VENTA PAGADA',true)
+
+--MONEDA
+INSERT INTO monedas (descripcion, simbolo, estado) VALUES('SOL PERU','S/.',true)
+INSERT INTO monedas (descripcion, simbolo, estado) VALUES('DOLAR EEUU','$',true)
+
+
+
+
+--VENCIMIENTO
+INSERT INTO VENCIMIENTOS (DESCRIPCION, DIAS, ESTADO) VALUES ('-',0,TRUE)
+INSERT INTO VENCIMIENTOS (DESCRIPCION, DIAS, ESTADO) VALUES ('7 días',7,TRUE)
+INSERT INTO VENCIMIENTOS (DESCRIPCION, DIAS, ESTADO) VALUES ('15 días',15,TRUE)
+INSERT INTO VENCIMIENTOS (DESCRIPCION, DIAS, ESTADO) VALUES ('30 días',30,TRUE)
+
+--DOCUMENTOS
+INSERT INTO documentos (descripcion, abreviatura, estado,doc_venta,comprobantes_electronicos) VALUES ('NOTA DE VENTA','NV',true,true,false)
+INSERT INTO documentos (descripcion, abreviatura, estado,doc_venta,comprobantes_electronicos) VALUES ('BOLETA','BT',true,false,true)
+INSERT INTO documentos (descripcion, abreviatura, estado,doc_venta,comprobantes_electronicos) VALUES ('FACTURA','FT',true,false,true)
+INSERT INTO documentos (descripcion, abreviatura, estado,doc_venta,comprobantes_electronicos) VALUES ('CUENTAS POR COBRAR - RECIBO','RC',true,false,false)
+INSERT INTO documentos (descripcion, abreviatura, estado,doc_venta,comprobantes_electronicos) VALUES ('CUENTAS POR PAGAR - RECIBO','RP',true,false,false)
+INSERT INTO documentos (descripcion, abreviatura, estado,doc_venta,comprobantes_electronicos) VALUES ('COTIZACION','CT',true,false,false)
+
+--DOCUMENTO CORRELATIVO
+INSERT INTO documento_correlativo (id_empresa, id_documento, serie, emitidos,ventas) VALUES (1,1,'N001',0,true)
+INSERT INTO documento_correlativo (id_empresa, id_documento, serie, emitidos,ventas) VALUES (1,2,'B001',0,true)
+INSERT INTO documento_correlativo (id_empresa, id_documento, serie, emitidos,ventas) VALUES (1,3,'F001',0,true)
+INSERT INTO documento_correlativo (id_empresa, id_documento, serie, emitidos,ventas) VALUES (1,4,'CC01',0,false)
+INSERT INTO documento_correlativo (id_empresa, id_documento, serie, emitidos,ventas) VALUES (1,5,'CP01',0,false)
+INSERT INTO documento_correlativo (id_empresa, id_documento, serie, emitidos,ventas) VALUES (1,6,'C001',0,false)
+
+
+--IMPUESTOS
+INSERT INTO impuestos (descripcion, impuesto ,estado) VALUES('SIN IMP.',0,true)
+INSERT INTO impuestos (descripcion, impuesto ,estado) VALUES('IGV(18%)',1.18,true)
+
+
+--CLIENTE
+INSERT INTO CLIENTES (ID_EMPRESA, APELLIDO_MATERNO,APELLIDO_PATERNO, CELULAR,CORREO,CREADO,DIRECCION,DISTRITO,ESTADO,MODIFICADO,NOMBRES,NRO_DOCUMENTO,PROVINCIA,RAZON_SOCIAL,ID_DOCUMENTO_PERSONA,ID_TIPO_PERSONA) VALUES (1,'HUAPAYA','ARIAS','959337544','xavieralexisariashuapaya@hotmail.com','2020-10-30 10:11:31.856','Direccion','Distrito',true,'2020-10-30 10:11:31.856','XAVIER ALEXIS','73070360','Provincia','',2,2)
+
+
+
+--ESPECIFICACION TIEMPO
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('-',true)
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('MINUTOS',true)
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('HORAS',true)
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('DIAS',true)
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('SEMANAS(7 DIAS)',true)
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('MESES(30 DIAS)',true)
+INSERT INTO especificacion_tiempo (descripcion, estado) VALUES ('AÑOS(12 DIAS)',true)
+
+--COTIZACION
+--INSERT INTO COTIZACIONES (DELIVERY_COTIZACION, DESCUENTO_COTIZACION, EMITIDA, ESTADO, IMPUESTO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_COTIZACION, TOTAL_COTIZACION, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO) VALUES (0,0,'2020-10-30 14:37:46.235',TRUE,30.5084745762712,'00000001','',269.491525423729,300,'2020-11-06 00:00:00',1,6,1,1,1)
+
+--COTIZACION DETALLE
+--INSERT INTO COTIZACION_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_COTIZACION)VALUES (1,TRUE,200,'Producto 1',0,200,30.5084745762712,NULL,2,NULL,1)
+--INSERT INTO COTIZACION_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_COTIZACION)VALUES (1,TRUE,100,'Producto 1',0,100,0,NULL,2,NULL,1)
+
+
+--VENTA
+--INSERT INTO VENTAS(DELIVERY_VENTA, DESCUENTO_VENTA, EMITIDA, ESTADO, IMPUESTO_VENTA,NRO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_VENTA, TOTAL_VENTA, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO,ID_VENTA_ESTADO)VALUES (0,0,'2020-10-31 12:39:25.75',TRUE,7.62711864406779,'','00000001','',142.372881355932,150,'2020-11-07 00:00:00',1,1,1,1,1,1)
+
+--VENTA DETALLE
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,50,'TELEVISOR',0,50,7.62711864406779,1,2,1,1)
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,100,'INSTALACION WINDOWS 10',5,100,0,2,1,NULL,1)
+
+
+
+
+
+
+
+
+
+--VENTA
+--INSERT INTO VENTAS(DELIVERY_VENTA, DESCUENTO_VENTA, EMITIDA, ESTADO, IMPUESTO_VENTA,NRO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_VENTA, TOTAL_VENTA, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO,ID_VENTA_ESTADO)VALUES (0,0,'2020-10-31 12:39:25.75',TRUE,7.62711864406779,'','00000002','',142.372881355932,150,'2020-11-07 00:00:00',1,1,1,1,1,1)
+
+--VENTA DETALLE
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,50,'TELEVISOR',0,50,7.62711864406779,1,2,1,2)
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,100,'INSTALACION WINDOWS 10',5,100,0,2,1,NULL,2)
+
+
+
+--VENTA
+--INSERT INTO VENTAS(DELIVERY_VENTA, DESCUENTO_VENTA, EMITIDA, ESTADO, IMPUESTO_VENTA,NRO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_VENTA, TOTAL_VENTA, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO,ID_VENTA_ESTADO)VALUES (0,0,'2020-10-31 12:39:25.75',TRUE,7.62711864406779,'','00000003','',142.372881355932,150,'2020-11-07 00:00:00',1,1,1,1,1,1)
+
+--VENTA DETALLE
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,50,'TELEVISOR',0,50,7.62711864406779,1,2,1,3)
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,100,'INSTALACION WINDOWS 10',5,100,0,2,1,NULL,3)
+
+
+
+--VENTA
+--INSERT INTO VENTAS(DELIVERY_VENTA, DESCUENTO_VENTA, EMITIDA, ESTADO, IMPUESTO_VENTA,NRO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_VENTA, TOTAL_VENTA, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO,ID_VENTA_ESTADO)VALUES (0,0,'2020-10-31 12:39:25.75',TRUE,7.62711864406779,'','00000004','',142.372881355932,150,'2020-11-07 00:00:00',1,1,1,1,1,1)
+
+--VENTA DETALLE
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,50,'TELEVISOR',0,50,7.62711864406779,1,2,1,4)
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,100,'INSTALACION WINDOWS 10',5,100,0,2,1,NULL,4)
+
+
+--VENTA
+--INSERT INTO VENTAS(DELIVERY_VENTA, DESCUENTO_VENTA, EMITIDA, ESTADO, IMPUESTO_VENTA,NRO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_VENTA, TOTAL_VENTA, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO,ID_VENTA_ESTADO)VALUES (0,0,'2020-10-31 12:39:25.75',TRUE,7.62711864406779,'','00000005','',142.372881355932,150,'2020-11-07 00:00:00',1,1,1,1,1,1)
+
+--VENTA DETALLE
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,50,'TELEVISOR',0,50,7.62711864406779,1,2,1,5)
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,100,'INSTALACION WINDOWS 10',5,100,0,2,1,NULL,5)
+
+
+--VENTA
+--INSERT INTO VENTAS(DELIVERY_VENTA, DESCUENTO_VENTA, EMITIDA, ESTADO, IMPUESTO_VENTA,NRO_COTIZACION, NRO_DOCUMENTO, OBSERVACION, SUBTOTAL_VENTA, TOTAL_VENTA, VENCIMIENTO, ID_CLIENTE, ID_DOCUMENTO, ID_EMPRESA, ID_MONEDA, ID_VENCIMIENTO,ID_VENTA_ESTADO)VALUES (0,0,'2020-10-31 12:39:25.75',TRUE,7.62711864406779,'','00000006','',142.372881355932,150,'2020-11-07 00:00:00',1,1,1,1,1,1)
+
+--VENTA DETALLE
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,50,'TELEVISOR',0,50,7.62711864406779,1,2,1,6)
+--INSERT INTO VENTA_DETALLE (CANTIDAD, ESTADO, PRECIO_UNITARIO, PRODUCTO_SERVICIO, TIEMPO, TOTAL, TOTAL_IMPUESTO,ID_ESPECIFICACION_TIEMPO, ID_IMPUESTO, ID_PRODUCTO,ID_VENTA)VALUES (1,TRUE,100,'INSTALACION WINDOWS 10',5,100,0,2,1,NULL,6)
+
+
+
+
+
+
+
+
+
+
+
+--CAJA BANCO
+--INSERT INTO caja_bancos (nombre, id_empresa,estado) VALUES ('EFECTIVO',1,true)
+--INSERT INTO caja_bancos (nombre, id_empresa,estado) VALUES ('AHORRO',1,true)
+--INSERT INTO caja_bancos (nombre, id_empresa,estado) VALUES ('CORRIENTE',1,true)
+
+--CAJA CHICA
+--INSERT INTO caja_chica (observacion_abrir,observacion_cerrar,fecha_cierre,monto_apertura,monto_efectivo,id_caja_banco,id_empresa,estado_caja_chica,estado) VALUES ('','',NOW(),1000,0,1,1,true,true)
+
+
+
+
+
+--CLIENTES
+--INSERT INTO clientes (apellido_materno,apellido_paterno,creado,email,modificado,nombres,celular) VALUES ('CIELO','CIELO','08/09/2020','CIELO@HOTMAIL.COM','08/08/2020','MANUEL','123123')
+--INSERT INTO clientes (apellido_materno,apellido_paterno,creado,email,modificado,nombres,celular) VALUES ('ROJAS','ROJAS','08/09/2020','ROJAS@HOTMAIL.COM','08/08/2020','ERIKA','312312')
+
+--PRODUCTOS
+--INSERT INTO productos (creado,estado,modificado,nombre,precio) VALUES ('08/09/2020',true,'08/09/2020','TELEVISOR',1050.30)
+--INSERT INTO productos (creado,estado,modificado,nombre,precio) VALUES ('08/09/2020',true,'08/09/2020','MONITOR',500)
+--INSERT INTO productos (creado,estado,modificado,nombre,precio) VALUES ('08/09/2020',true,'08/09/2020','COMPUTADORA',3000)
+
+--VENTAS
+--INSERT INTO venta ( emitida, observacion, vencimiento, id_cliente,total_venta, id_documento,id_moneda,nro_documento,subtotal_venta,descuento_venta,impuesto_venta,id_venta_estado)VALUES ('08/09/2020','OBSERVACION','08/09/2020',1,1050.30,2,2,'00000001',1050.30,0,0,1)
+--INSERT INTO venta ( emitida, observacion, vencimiento, id_cliente,total_venta, id_documento,id_moneda,nro_documento,subtotal_venta,descuento_venta,impuesto_venta,id_venta_estado)VALUES ('08/09/2020','OBSERVACION','08/09/2020',2,4000.00,2,2,'00000002',4000.00,0,0,1)
+
+--VENTAS DETALLE
+--INSERT INTO venta_detalle (cantidad, id_producto, id_venta,id_impuesto,importe) VALUES (1, 1, 1, 1,1050.3)
+--INSERT INTO venta_detalle (cantidad, id_producto, id_venta,id_impuesto,importe) VALUES (2, 2, 2, 1,1000)
+--INSERT INTO venta_detalle (cantidad, id_producto, id_venta,id_impuesto,importe) VALUES (1, 3, 2, 1,3000)
+
+--DOCUMENTO_CORRELATIVO MODIFICAR 
+--YA SE REALIZO DOS BOLETAS DE PRUEBA
+--UPDATE documento_correlativo SET emitidos = 2 WHERE id_documento_correlativo = 2 AND id_empresa = 1
+
+--INSERT INTO 
+
+
+
+
+--TIPO DE OPERACION
+INSERT INTO tipo_operacion (descripcion,ingreso) VALUES ('INGRESOS POR VENTAS',true)
+INSERT INTO tipo_operacion (descripcion,ingreso) VALUES ('RENTAS',false)
+--FORMA DE PAGO
+--INSERT INTO FORMA_PAGO (DESCRIPCION, DISOPNIBILIDAD_FONDOS, ESTADO) VALUES ('POS VISA', TRUE , TRUE)
+
+--INSERT INTO forma_pago (descripcion,disopnibilidad_fondos,estado) VALUES ('EFECTIVO',true,true)
+--INSERT INTO forma_pago (descripcion,disopnibilidad_fondos,estado) VALUES ('DEPOSITO',true,true)
+--INSERT INTO forma_pago (descripcion,disopnibilidad_fondos,estado) VALUES ('POS VISA',false,true)
+--INSERT INTO forma_pago (descripcion,disopnibilidad_fondos,estado) VALUES ('POS MASTERCARD',false,true)
+--INSERT INTO forma_pago (descripcion,disopnibilidad_fondos,estado) VALUES ('CHEQUE',false,true)
+
+--ENTIDADES
+--INSERT INTO entidades (descripcion,nro_cuenta,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('BCP','1111',0.5,'24 HORAS',TRUE)
+--INSERT INTO entidades (descripcion,nro_cuenta,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('CONTINENTAL','2222',0.7,'48 HORAS',TRUE)
+--INSERT INTO entidades (descripcion,nro_cuenta,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('INTERBANK','3333',0.5,'12 HORAS',TRUE)
+--INSERT INTO entidades (descripcion,nro_cuenta,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('WERTERN UNION','4444',0.0,'0 HORAS',TRUE)
+
+--TIPO DE CUENTA
+INSERT INTO tipo_cuenta (apertura, descripcion, estado) VALUES (1000,'CAJA CHICA',true)
+INSERT INTO tipo_cuenta (apertura, descripcion, estado) VALUES (2000,'CORRIENTE',true)
+INSERT INTO tipo_cuenta (apertura, descripcion, estado) VALUES (500,'AHORROS',true)
+
+--ENTIDADES
+--INSERT INTO ENTIDADES (DESCRIPCION, ESTADO, GASTOS_FINANCIEROS, NRO_CUENTA, TIEMPO_DISPONIBILIDAD, ID_TIPO_CUENTA) VALUES ('BCP',true,0.8,'010485934',0,1)
+
+--TIPO DE TARJETA
+--INSERT INTO tipo_tarjeta (descripcion,disopnibilidad_fondos,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('EFECTIVO',true,0,'',true)
+--INSERT INTO tipo_tarjeta (descripcion,disopnibilidad_fondos,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('CONTINENTAL',false,5,'',true)
+--INSERT INTO tipo_tarjeta (descripcion,disopnibilidad_fondos,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('BCP',false,5,'',true)
+--INSERT INTO tipo_tarjeta (descripcion,disopnibilidad_fondos,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('WETERN UNION',false,5,'',true)
+--INSERT INTO tipo_tarjeta (descripcion,disopnibilidad_fondos,gastos_financieros,tiempo_disponibilidad,estado) VALUES ('INTERBANK',false,5,'',true)
+
+--OPERACIONES
+--INSERT INTO operaciones (concepto,creado,modificado,monto,pagado,vuelto,id_empleado,id_empresa,id_forma_pago,id_tipo_operacion,id_tipo_tarjeta) VALUES ('CONCEPTO','2020-09-10','2020-09-10',50,50,0,1,1,1,1,2)
+
+--PROVEEDOR CREDITO
+INSERT INTO proveedor_credito (descripcion, estado) VALUES ('CONTADO',true)
+INSERT INTO proveedor_credito (descripcion, estado) VALUES ('CREDITO A 15 DIAS',true)
+INSERT INTO proveedor_credito (descripcion, estado) VALUES ('CREDITO A 30 DIAS',true)
+INSERT INTO proveedor_credito (descripcion, estado) VALUES ('CREDITO A 60 DIAS',true)
+
+--TIPO GASTO
+INSERT INTO tipo_gastos (descripcion, estado)  VALUES ('SALDO INICIAL',TRUE)
+INSERT INTO tipo_gastos (descripcion, estado)  VALUES ('GASTO DE AMORTIZACION',TRUE)
+INSERT INTO tipo_gastos (descripcion, estado)  VALUES ('SEGUROS - GENERAL',TRUE)
+INSERT INTO tipo_gastos (descripcion, estado)  VALUES ('SUMINISTROS',TRUE)
+
+--PROVEEDOR
+INSERT INTO proveedores (razon_social,direccion,cuidad,provincia,codigo_postal,pais,correo,telefono,sitio_web,saldo_inicial,nro_cuenta,ruc,id_proveedor_credito,estado,creado) VALUES ('PROVEEDOR1','DIRECCION','CIUDAD','PROVINCIA','10','PERU','PR1@GMAIL.COM','11111','',0,'22222','123456789011',1,true,NOW())
+
+--RECIBO ESTADO
+INSERT INTO recibo_estado (descripcion,estado) VALUES ('PENDIENTE',true)
+INSERT INTO recibo_estado (descripcion,estado) VALUES ('PAGADO',true)
+INSERT INTO recibo_estado (descripcion,estado) VALUES ('ANULADO',true)
+
+--PRODUCTO UNIDAD
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('CAJA',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('GALONES',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('GRAMOS',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('HORA',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('KILOS',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('LITROS',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('METROS',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('PIES',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('PULGADAS',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('SERVICIO',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('TONELADA(TONELADA MÉTRICA)',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('UNIDAD',true)
+INSERT INTO producto_unidad(descripcion, estado) VALUES ('YARDAS',true)
+
+
+
+
+--TIPO AFECTACION
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - OPERACIÓN ONEROSA',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - RETIRO POR PREMIO',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - RETIRO POR DONACIÓN',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - RETIRO',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - RETIRO POR PUBLICIDAD',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - BONIFICACIONES',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('GRAVADO - RETIRO POR ENTREGA A TRABAJADORES',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('EXONERADO - OPERACIÓN ONEROSA',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('EXONERADO - TRANSFERENCIA GRATUITA',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - OPERACIÓN ONEROSA',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - RETIRO POR BONIFICACIÓN',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - RETIRO',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - RETIRO POR MUESTRAS MÉDICAS',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - RETIRO POR CONVENIO COLECTIVO',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - RETIRO POR PREMIO',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - RETIRO POR PUBLIDAD',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('INAFECTO - TRANSFERENCIA GRATUITA',true)
+INSERT INTO tipo_afectacion (descripcion, estado) VALUES ('EXPORTACIÓN DE BIENES O SERVICIOS',true)
+
+--PRODUCTO CATEGORIA
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('REPUESTO',true)
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('FIERROS',true)
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('CEMENTO',true)
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('CADENAS',true)
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('FAJAS',true)
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('SOLDADURAS',true)
+INSERT INTO producto_categoria (descripcion, estado) VALUES ('AMOLADORAS',true)
+
+
+--PRODUCTO MARCA
+INSERT INTO producto_marca (descripcion, estado) VALUES ('ACEITES',true)
+INSERT INTO producto_marca (descripcion, estado) VALUES ('ARROZ',true)
+INSERT INTO producto_marca (descripcion, estado) VALUES ('AVENAS',true)
+INSERT INTO producto_marca (descripcion, estado) VALUES ('GASEOSAS',true)
+INSERT INTO producto_marca (descripcion, estado) VALUES ('LIMPIEZA',true)
+INSERT INTO producto_marca (descripcion, estado) VALUES ('BEBIDAS',true)
+
+
+--PRODUCTO ESTADO SERIE
+
+INSERT INTO producto_estado_serie (descripcion, estado) VALUES ('ACTIVO',true)
+INSERT INTO producto_estado_serie (descripcion, estado) VALUES ('INACTIVO',true)
+INSERT INTO producto_estado_serie (descripcion, estado) VALUES ('DESACTIVADO',true)
+INSERT INTO producto_estado_serie (descripcion, estado) VALUES ('VOZ',true)
+INSERT INTO producto_estado_serie (descripcion, estado) VALUES ('M2m',true)

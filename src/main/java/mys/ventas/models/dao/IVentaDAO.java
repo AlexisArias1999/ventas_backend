@@ -1,0 +1,88 @@
+package mys.ventas.models.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import mys.ventas.models.entity.Venta;
+
+public interface IVentaDAO extends CrudRepository<Venta, Long>{
+
+	@Query(value = "SELECT\r\n" + 
+			"DISTINCT V.ID_VENTA,\r\n" + 
+			"CONCAT(C.APELLIDO_PATERNO,' ', C.APELLIDO_MATERNO ,' ',C.NOMBRES) AS NOMBRES,\r\n" + 
+			"D.DESCRIPCION,\r\n" + 
+			"V.ID_VENTA_ESTADO,\r\n" + 
+			"V.NRO_DOCUMENTO,\r\n" + 
+			"V.TOTAL_VENTA,\r\n" + 
+			"COALESCE(SUM(R1.PAGADO),0) AS PAGADO,\r\n" + 
+			"COALESCE(SUM(R2.PAGADO),0) AS MONTO_RECIBO,\r\n" + 
+			"V.TOTAL_VENTA - COALESCE(SUM(R1.PAGADO),0) AS DEUDA,\r\n" + 
+			"V.EMITIDA,\r\n" + 
+			"VE.DESCRIPCION AS ESTADO_VENTA\r\n" + 
+			"FROM VENTAS V\r\n" + 
+			"LEFT JOIN RECIBOS R1 ON R1.ID_VENTA = V.ID_VENTA AND R1.ID_RECIBO_ESTADO = 2\r\n" + 
+			"LEFT JOIN RECIBOS R2 ON R2.ID_VENTA = V.ID_VENTA AND R2.ID_RECIBO_ESTADO = 1\r\n" + 
+			"INNER JOIN CLIENTES C ON C.ID_CLIENTE = V.ID_CLIENTE\r\n" + 
+			"INNER JOIN DOCUMENTOS D ON D.ID_DOCUMENTO = V.ID_DOCUMENTO\r\n" + 
+			"INNER JOIN VENTA_ESTADO VE ON VE.ID_VENTA_ESTADO = V.ID_VENTA_ESTADO\r\n" + 
+			"GROUP BY V.ID_VENTA, C.NOMBRES, C.APELLIDO_PATERNO, C.APELLIDO_MATERNO,V.EMITIDA,V.NRO_DOCUMENTO,D.DESCRIPCION,VE.DESCRIPCION\r\n" + 
+			"ORDER BY NRO_DOCUMENTO DESC", nativeQuery =true)
+	public List<Map<String, Object>> findAllVentasRecibos();
+	
+	@Query(value = "SELECT\r\n" + 
+			"DISTINCT V.ID_VENTA,\r\n" + 
+			"(CASE \r\n" + 
+			"WHEN C.RAZON_SOCIAL = '' THEN CONCAT(C.APELLIDO_PATERNO,' ',C.APELLIDO_MATERNO,' ',C.NOMBRES)\r\n" + 
+			"ELSE C.RAZON_SOCIAL\r\n" + 
+			"END) AS CLIENTE,\r\n" + 
+			"D.DESCRIPCION,\r\n" + 
+			"V.ID_VENTA_ESTADO,\r\n" + 
+			"V.NRO_DOCUMENTO,\r\n" + 
+			"V.TOTAL_VENTA,\r\n" + 
+			"COALESCE(SUM(R1.PAGADO),0) AS PAGADO,\r\n" + 
+			"COALESCE(SUM(R2.PAGADO),0) AS MONTO_RECIBO,\r\n" + 
+			"V.TOTAL_VENTA - COALESCE(SUM(R1.PAGADO),0) AS DEUDA,\r\n" + 
+			"V.EMITIDA,\r\n" + 
+			"VE.DESCRIPCION AS ESTADO_VENTA\r\n" + 
+			"FROM VENTAS V\r\n" + 
+			"LEFT JOIN RECIBOS R1 ON R1.ID_VENTA = V.ID_VENTA AND R1.ID_RECIBO_ESTADO = 2\r\n" + 
+			"LEFT JOIN RECIBOS R2 ON R2.ID_VENTA = V.ID_VENTA AND R2.ID_RECIBO_ESTADO = 1\r\n" + 
+			"INNER JOIN CLIENTES C ON C.ID_CLIENTE = V.ID_CLIENTE\r\n" + 
+			"INNER JOIN DOCUMENTOS D ON D.ID_DOCUMENTO = V.ID_DOCUMENTO\r\n" + 
+			"INNER JOIN VENTA_ESTADO VE ON VE.ID_VENTA_ESTADO = V.ID_VENTA_ESTADO\r\n" + 
+			"GROUP BY V.ID_VENTA, C.NOMBRES, C.APELLIDO_PATERNO, C.APELLIDO_MATERNO,V.EMITIDA,V.NRO_DOCUMENTO,D.DESCRIPCION,VE.DESCRIPCION,RAZON_SOCIAL\r\n" + 
+			"ORDER BY NRO_DOCUMENTO DESC", nativeQuery =true)
+	public Page<Map<String, Object>> PaginacionVentasRecibos(Pageable pageable);
+	
+	
+
+	@Query(value = "SELECT\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,TO_CHAR((V.DESCUENTO_VENTA),'9,999,999.00')),' ','') AS DESCUENTO_VENTA,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,TO_CHAR((V.IMPUESTO_VENTA),'9,999,999.00')),' ','') AS IMPUESTO_VENTA,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,TO_CHAR(V.SUBTOTAL_VENTA,'9,999,999.00')),' ','') AS SUBTOTAL_VENTA,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,TO_CHAR(V.TOTAL_VENTA,'9,999,999.00')),' ','') AS TOTAL_VENTA,\r\n" + 
+			"CONCAT(TO_CHAR(V.EMITIDA, 'DD/MM/YYYY')) AS EMITIDA,\r\n" + 
+			"CONCAT(D.DESCRIPCION,' ',V.NRO_DOCUMENTO) AS DOCUMENTO,\r\n" + 
+			"(CASE \r\n" + 
+			"WHEN C.RAZON_SOCIAL = '' THEN CONCAT(C.APELLIDO_PATERNO,' ',C.APELLIDO_MATERNO,' ',C.NOMBRES)\r\n" + 
+			"ELSE C.RAZON_SOCIAL\r\n" + 
+			"END) AS CLIENTE,\r\n" + 
+			"VD.PRODUCTO_SERVICIO AS NOMBRE,\r\n" + 
+			"VD.CANTIDAD,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,TO_CHAR(VD.PRECIO_UNITARIO,'9,999,999.00')),' ','') AS PRECIO,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,TO_CHAR((VD.PRECIO_UNITARIO * VD.CANTIDAD) ,'9,999,999.00')),' ','') AS MONTO\r\n" + 
+			"FROM VENTA_DETALLE VD\r\n" + 
+			"LEFT JOIN PRODUCTOS P ON VD.ID_PRODUCTO = P.ID_PRODUCTO\r\n" + 
+			"INNER JOIN VENTAS V ON VD.ID_VENTA = V.ID_VENTA\r\n" + 
+			"INNER JOIN CLIENTES C ON V.ID_CLIENTE = C.ID_CLIENTE\r\n" + 
+			"INNER JOIN DOCUMENTOS D ON V.ID_DOCUMENTO = D.ID_DOCUMENTO\r\n" + 
+			"INNER JOIN MONEDAS M ON M.ID_MONEDA = V.ID_MONEDA\r\n" + 
+			"WHERE VD.ID_VENTA = ?", nativeQuery =true)
+	public List<Map<String, Object>> FindVentaIdReporte(Long id_venta);
+	
+}

@@ -1,0 +1,101 @@
+package mys.ventas.models.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import mys.ventas.models.entity.Cotizacion;
+
+public interface ICotizacionDAO extends JpaRepository<Cotizacion, Long>{
+
+	@Query(value = "SELECT * FROM COTIZACIONES WHERE NRO_DOCUMENTO = ?" , nativeQuery = true)
+	public Cotizacion findCotizacionNroDocumento(String nro_documento);
+	
+	@Query(value = "SELECT\r\n" + 
+			"DISTINCT CO.ID_COTIZACION,\r\n" + 
+			"(CASE \r\n" + 
+			"WHEN C.RAZON_SOCIAL = '' THEN CONCAT(C.APELLIDO_PATERNO,' ',C.APELLIDO_MATERNO,' ',C.NOMBRES)\r\n" + 
+			"ELSE C.RAZON_SOCIAL\r\n" + 
+			"END) AS CLIENTE,\r\n" + 
+			"D.DESCRIPCION,\r\n" + 
+			"0 AS ID_VENTA_ESTADO,\r\n" + 
+			"CO.NRO_DOCUMENTO,\r\n" + 
+			"CO.TOTAL_COTIZACION AS TOTAL_VENTA,\r\n" + 
+			"0 AS PAGADO,\r\n" + 
+			"0 AS MONTO_RECIBO,\r\n" + 
+			"0 AS DEUDA,\r\n" + 
+			"CO.EMITIDA,\r\n" + 
+			"'GENERADO' AS ESTADO_VENTA\r\n" + 
+			"FROM COTIZACIONES CO\r\n" + 
+			"INNER JOIN CLIENTES C ON C.ID_CLIENTE = CO.ID_CLIENTE\r\n" + 
+			"INNER JOIN DOCUMENTOS D ON D.ID_DOCUMENTO = CO.ID_DOCUMENTO\r\n" + 
+			"GROUP BY CO.ID_COTIZACION, C.NOMBRES, C.APELLIDO_PATERNO, C.APELLIDO_MATERNO,CO.EMITIDA,CO.NRO_DOCUMENTO,D.DESCRIPCION,C.RAZON_SOCIAL\r\n" + 
+			"ORDER BY NRO_DOCUMENTO DESC", nativeQuery =true)
+	public Page<Map<String, Object>> PaginacionCotizacion(Pageable pageable);
+	
+	@Query(value = "SELECT\r\n" + 
+			"CONCAT('DESCUENTO: ',TO_CHAR((CO.DESCUENTO_COTIZACION),'LFM9,999,999.00')) AS DESCUENTO_COTIZACION,\r\n" + 
+			"CONCAT('IMPUESTO: ',TO_CHAR((CO.IMPUESTO_COTIZACION),'LFM9,999,999.00')) AS IMPUESTO_COTIZACION,\r\n" + 
+			"CONCAT('VALOR DE VENTA: ',TO_CHAR(CO.SUBTOTAL_COTIZACION,'LFM9,999,999.00')) AS SUBTOTAL_COTIZACION,\r\n" + 
+			"CONCAT('IMPORTE TOTAL: ',TO_CHAR(CO.TOTAL_COTIZACION,'LFM9,999,999.00')) AS TOTAL_COTIZACION,\r\n" + 
+			"CONCAT('Emitido: ',TO_CHAR(CO.EMITIDA, 'DD/MM/YYYY')) AS EMITIDA,\r\n" + 
+			"CONCAT(D.DESCRIPCION,' ',CO.NRO_DOCUMENTO) AS DOCUMENTO,\r\n" + 
+			"CONCAT('Señor(es): ',C.APELLIDO_PATERNO,' ',C.APELLIDO_MATERNO,' ',C.NOMBRES) AS CLIENTE,\r\n" + 
+			"P.NOMBRE,\r\n" + 
+			"P.FOTO,\r\n" + 
+			"CD.CANTIDAD,\r\n" + 
+			"TO_CHAR(P.PRECIO,'9,999,999.00') AS PRECIO,\r\n" + 
+			"TO_CHAR((P.PRECIO * CD.CANTIDAD) ,'9,999,999.00') AS MONTO\r\n" + 
+			"FROM COTIZACION_DETALLE CD\r\n" + 
+			"INNER JOIN PRODUCTOS P ON CD.ID_PRODUCTO = P.ID_PRODUCTO\r\n" + 
+			"INNER JOIN COTIZACIONES CO ON CD.ID_COTIZACION = CO.ID_COTIZACION\r\n" + 
+			"INNER JOIN CLIENTES C ON CO.ID_CLIENTE = C.ID_CLIENTE\r\n" + 
+			"INNER JOIN DOCUMENTOS D ON CO.ID_DOCUMENTO = D.ID_DOCUMENTO\r\n" + 
+			"WHERE CD.ID_COTIZACION = ?", nativeQuery =true)
+	public List<Map<String, Object>> FindCotizacionIdReporte(Long id_cotizacion);
+	
+	
+	
+	@Query(value = "SELECT \r\n" + 
+			"CD.TIEMPO,\r\n" + 
+			"COALESCE(ET.DESCRIPCION,'') AS ESPECIFICACION,\r\n" + 
+			"C.NRO_DOCUMENTO AS NRO_COTIZACION,\r\n" + 
+			"CL.RAZON_SOCIAL AS CLIENTE,\r\n" + 
+			"CL.CELULAR AS CELULAR_CLIENTE,\r\n" + 
+			"CL.CORREO AS CORREO_CLIENTE,\r\n" + 
+			"CL.DIRECCION AS DIRECCION_CLIENTE,\r\n" + 
+			"CL.DISTRITO AS DISTRITO_CLIENTE,\r\n" + 
+			"CL.PROVINCIA AS PROVINCIA_CLIENTE,\r\n" + 
+			"CL.NRO_DOCUMENTO AS RUC_CLIENTE,\r\n" + 
+			"E.RAZON_SOCIAL AS EMPRESA,\r\n" + 
+			"E.CELULAR AS CELULAR_EMPRESA,\r\n" + 
+			"E.CORREO AS CORREO_EMPRESA,\r\n" + 
+			"E.DIRECCION AS DIRECCION_EMPRESA,\r\n" + 
+			"E.DISTRITO AS DISTRITO_EMPRESA,\r\n" + 
+			"E.PROVINCIA AS PROVINCIA_EMPRESA,\r\n" + 
+			"E.RUC AS RUC_EMPRESA,\r\n" + 
+			"TO_CHAR(C.EMITIDA, 'DD/MM/YYYY') AS EMISION,\r\n" + 
+			"TO_CHAR(C.VENCIMIENTO, 'DD/MM/YYYY') AS VALIDEZ,\r\n" + 
+			"CD.PRODUCTO_SERVICIO AS CONCEPTO,\r\n" + 
+			"CD.CANTIDAD,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,'',TO_CHAR(CD.PRECIO_UNITARIO,'9,999,999.00')),' ','') AS PRECIO_UNITARIO,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,'',TO_CHAR((CD.PRECIO_UNITARIO * CD.CANTIDAD),'9,999,999.00')),' ','') AS BASE_TOTAL,\r\n" + 
+			"I.DESCRIPCION AS IMPUESTO,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,'',TO_CHAR(CD.TOTAL_IMPUESTO,'9,999,999.00')),' ','') AS TOTAL_IMPUESTO,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,'',TO_CHAR(C.SUBTOTAL_COTIZACION,'9,999,999.00')),' ','') AS BASE_IMPONIBLE,\r\n" + 
+			"REPLACE(CONCAT(M.SIMBOLO,'',(TO_CHAR(C.IMPUESTO_COTIZACION,'9,999,999.00'))),' ','') AS CO_TOTAL_IMPUESTO\r\n" + 
+			"FROM COTIZACIONES C\r\n" + 
+			"INNER JOIN CLIENTES CL ON C.ID_CLIENTE = CL.ID_CLIENTE\r\n" + 
+			"INNER JOIN EMPRESAS E ON C.ID_EMPRESA = E.ID_EMPRESA\r\n" + 
+			"INNER JOIN MONEDAS M ON M.ID_MONEDA = C.ID_MONEDA\r\n" + 
+			"LEFT JOIN COTIZACION_DETALLE CD ON CD.ID_COTIZACION = C.ID_COTIZACION\r\n" + 
+			"LEFT JOIN ESPECIFICACION_TIEMPO ET ON CD.ID_ESPECIFICACION_TIEMPO = ET.ID_ESPECIFICACION_TIEMPO\r\n" + 
+			"INNER JOIN IMPUESTOS I ON I.ID_IMPUESTO = CD.ID_IMPUESTO\r\n" + 
+			"WHERE C.ID_COTIZACION = ?", nativeQuery = true)
+	public List<Map<String, Object>> findCotizacionReporteIdCotizacion(Long id_cotizacion);
+	
+}
